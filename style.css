@@ -1,0 +1,186 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+}
+
+body {
+    background-color: #0b0c10; /* Deep Obsidian Black */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    color: #c5c6c7;
+    overflow: hidden; /* Main screen ka scroll bar gayab */
+}
+
+.chat-container {
+    width: 90%;
+    max-width: 800px;
+    height: 85vh;
+    background-color: #1f2833; /* Dark Graphite */
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(102, 252, 241, 0.1); /* Subtle Cyan glow border */
+    overflow: hidden;
+}
+
+/* Header Styling */
+.chat-header {
+    background-color: #141a22;
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(102, 252, 241, 0.15);
+}
+
+.header-info h2 {
+    color: #66fcf1; /* Neon Cyan */
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.header-info p {
+    font-size: 11px;
+    color: #45f3ff;
+    opacity: 0.6;
+    margin-top: 2px;
+}
+
+.status-badge {
+    background: rgba(102, 252, 241, 0.05);
+    border: 1px solid rgba(102, 252, 241, 0.2);
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #66fcf1;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #66fcf1;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #66fcf1;
+}
+
+/* Chat display area (Scrollable but invisible scrollbars) */
+.chat-box {
+    flex: 1;
+    padding: 25px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Chrome, Safari and Opera se scrollbar hide karne ke liye */
+.chat-box::-webkit-scrollbar {
+    display: none;
+}
+
+/* Messages styling */
+.message {
+    display: flex;
+    width: 100%;
+    opacity: 0; /* GSAP se control hoga handle karne ke liye */
+}
+
+.user-message {
+    justify-content: flex-end;
+}
+
+.ai-message {
+    justify-content: flex-start;
+}
+
+.bubble {
+    max-width: 75%;
+    padding: 14px 18px;
+    border-radius: 14px;
+    font-size: 15px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.user-message .bubble {
+    background: linear-gradient(135deg, #1f4068, #162447);
+    color: #ffffff;
+    border: 1px solid rgba(102, 252, 241, 0.2);
+    border-bottom-right-radius: 2px;
+}
+
+.ai-message .bubble {
+    background-color: #141a22;
+    color: #e0e0e0;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom-left-radius: 2px;
+}
+
+/* Bottom Input Area */
+.input-area {
+    padding: 20px 25px;
+    background-color: #141a22;
+    border-top: 1px solid rgba(102, 252, 241, 0.1);
+}
+
+.input-wrapper {
+    display: flex;
+    background-color: #1f2833;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 6px 8px;
+    align-items: center;
+    transition: border 0.3s ease;
+}
+
+.input-wrapper:focus-within {
+    border-color: #66fcf1;
+    box-shadow: 0 0 10px rgba(102, 252, 241, 0.1);
+}
+
+#userInput {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 10px;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+#userInput::placeholder {
+    color: #c5c6c7;
+    opacity: 0.4;
+}
+
+#sendBtn {
+    background-color: #66fcf1;
+    color: #0b0c10;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+#sendBtn:hover {
+    background-color: #45f3ff;
+    transform: scale(1.05);
+}
