@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { Telegraf } = require('telegraf');
 const Groq = require('groq-sdk'); // Google gaya, ab Groq aaya!
 
