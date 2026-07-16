@@ -1,4 +1,4 @@
-require('./bot.js');
+
 const chatBox = document.getElementById('chatBox');
 const userInput = document.getElementById('userInput');
 const sendBtn = document.getElementById('sendBtn');
@@ -90,28 +90,46 @@ async function getAIResponse(userMessage) {
 }
 
 // Main logic handle send
+// Main logic handle send (UPDATED & OPTIMIZED)
 async function handleSend() {
     const text = userInput.value.trim();
     if (!text) return;
 
-    // 1. User message insert karo
+    // 1. User ka message screen par dikhao
     appendMessage('user', text);
     userInput.value = '';
 
-    // 2. Typing loader create karo
+    // 2. Typing loader create karo aur uska bubble element dhoondho
     const loaderDiv = appendMessage('ai', 'Thinking...');
+    const bubbleElement = loaderDiv.querySelector('.bubble');
     
-    // Response fetch karo
+    // Loader text par ek halka sa pulsing effect (Optional but cool)
+    gsap.to(bubbleElement, { opacity: 0.5, yoyo: true, repeat: -1, duration: 0.5 });
+    
+    // API se Response fetch karo
     const aiResponse = await getAIResponse(text);
     
-    // 3. Loader hatane ke liye fade out karke change karo
+    // 3. Purane loader ko delete karne ke bajaye, usi ki text badal do!
+    gsap.killTweensOf(bubbleElement); // Pulsing effect ko stop karo
+    
     gsap.to(loaderDiv, { 
         opacity: 0, 
-        duration: 0.2, 
+        y: 10,
+        duration: 0.15, 
         onComplete: () => {
-            loaderDiv.remove();
-            // Asli answer print karo
-            appendMessage('ai', aiResponse);
+            // Text change karo bina element remove kiye
+            bubbleElement.innerText = aiResponse;
+            
+            // Wapas smoothly face-in kar do actual answer ke saath
+            gsap.to(loaderDiv, {
+                opacity: 1,
+                y: 0,
+                duration: 0.3,
+                ease: 'power2.out'
+            });
+            
+            // Auto scroll to bottom taaki naya text poora dikhe
+            chatBox.scrollTop = chatBox.scrollHeight;
         }
     });
 }
